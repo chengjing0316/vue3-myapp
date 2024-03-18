@@ -1,11 +1,7 @@
 <template>
   <div>404</div>
 </template>
-  
-<script setup lang='ts'>
-  
-</script>
-  
-<style>
-  
-</style>
+
+<script setup lang="ts"></script>
+
+<style></style>

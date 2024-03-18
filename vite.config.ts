@@ -17,17 +17,18 @@ export default defineConfig(({ command }: ConfigEnv): UserConfigExport => {
     // },
     resolve: {
       alias: {
-        '@': path.resolve("./src")
-      }
+        '@': path.resolve('./src'),
+      },
     },
-    plugins: [vue(),
-    createSvgIconsPlugin({
-      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-      symbolId: 'icon-[dir]-[name]'
-    }),
-    viteMockServe({
-      localEnabled: command === 'serve', //保证开发阶段能使用接口
-    }),
+    plugins: [
+      vue(),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]',
+      }),
+      viteMockServe({
+        localEnabled: command === 'serve', //保证开发阶段能使用接口
+      }),
     ],
     //scss全局变量的配置
     css: {
@@ -39,6 +40,4 @@ export default defineConfig(({ command }: ConfigEnv): UserConfigExport => {
       },
     },
   }
-}
-)
-
+})

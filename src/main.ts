@@ -7,7 +7,7 @@ import 'element-plus/dist/index.css'
 //@ts-ignore
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 //svg插件需要配置代码
-import "virtual:svg-icons-register"
+import 'virtual:svg-icons-register'
 // 引入自定义插件对象：注册整个项目全局组件
 import globalComponent from '@/components/index'
 //引入模板的全局样式

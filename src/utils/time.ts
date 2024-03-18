@@ -14,4 +14,3 @@ export const getTime = () => {
   }
   return message
 }
-

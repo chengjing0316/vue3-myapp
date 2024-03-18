@@ -11,7 +11,7 @@ interface dataType {
 
 //登录接口返回数据类型
 export interface loginResponseData {
-  code: number,
+  code: number
   data: dataType
 }
 interface userInfo {
@@ -26,8 +26,6 @@ interface userInfo {
   token: string
 }
 
-
-
 //服务器返回用户信息数据类型
 interface user {
   checkUser: userInfo
@@ -36,4 +34,3 @@ export interface userResponseData {
   code: number
   data: user
 }
-

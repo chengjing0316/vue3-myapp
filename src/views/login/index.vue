@@ -3,17 +3,38 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login-form" :model="loginForm" :rules="rules" ref="loginForms">
+        <el-form
+          class="login-form"
+          :model="loginForm"
+          :rules="rules"
+          ref="loginForms"
+        >
           <h1>hello</h1>
           <h2>welcome to aaaa</h2>
           <el-form-item prop="username">
-            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
+            <el-input
+              :prefix-icon="User"
+              v-model="loginForm.username"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
+            <el-input
+              type="password"
+              :prefix-icon="Lock"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button :loading="loading" type="primary" size="default" class="login_btn" @click="login">登录</el-button>
+            <el-button
+              :loading="loading"
+              type="primary"
+              size="default"
+              class="login_btn"
+              @click="login"
+            >
+              登录
+            </el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -21,14 +42,14 @@
   </div>
 </template>
 
-<script setup lang='ts'>
-import { User, Lock } from "@element-plus/icons-vue";
-import { reactive, ref } from "vue";
+<script setup lang="ts">
+import { User, Lock } from '@element-plus/icons-vue'
+import { reactive, ref } from 'vue'
 //引入用户相关的小仓库
-import useUserStore from "@/store/modules/users";
-import { useRouter } from "vue-router";
-import { ElNotification } from "element-plus";
-import { getTime } from "@/utils/time";
+import useUserStore from '@/store/modules/users'
+import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
+import { getTime } from '@/utils/time'
 
 let useStore = useUserStore()
 //获取el-form组件
@@ -58,7 +79,7 @@ const login = async () => {
     ElNotification({
       type: 'success',
       message: '登录成功',
-      title: `HI,${getTime()}好`
+      title: `HI,${getTime()}好`,
     })
     //登录成功加载效果也消失
     loading.value = false
@@ -69,7 +90,7 @@ const login = async () => {
     ElNotification({
       type: 'error',
       //这里类型提示,改成error as Error就OK了
-      message: (error as Error).message
+      message: (error as Error).message,
     })
   }
 }
@@ -93,13 +114,8 @@ const validatorPassWord = (rule: any, value: any, callback: any) => {
 }
 //定义表单校验需要配置的对象
 const rules = {
-  username: [
-    { trigger: 'change', validatorUserName }
-  ],
-  password: [
-    { trigger: 'change', validatorPassWord }
-
-  ]
+  username: [{ trigger: 'change', validatorUserName }],
+  password: [{ trigger: 'change', validatorPassWord }],
 }
 </script>
 
