@@ -3,36 +3,17 @@
     <el-row>
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login-form"
-          :model="loginForm"
-          :rules="rules"
-          ref="loginForms"
-        >
+        <el-form class="login-form" :model="loginForm" :rules="rules" ref="loginForms">
           <h1>hello</h1>
           <h2>welcome to aaaa</h2>
           <el-form-item prop="username">
-            <el-input
-              :prefix-icon="User"
-              v-model="loginForm.username"
-            ></el-input>
+            <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              type="password"
-              :prefix-icon="Lock"
-              v-model="loginForm.password"
-              show-password
-            ></el-input>
+            <el-input type="password" :prefix-icon="Lock" v-model="loginForm.password" show-password></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              :loading="loading"
-              type="primary"
-              size="default"
-              class="login_btn"
-              @click="login"
-            >
+            <el-button :loading="loading" type="primary" size="default" class="login_btn" @click="login">
               登录
             </el-button>
           </el-form-item>
@@ -151,3 +132,4 @@ const rules = {
   }
 }
 </style>
+@/store/modules/user

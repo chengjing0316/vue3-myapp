@@ -1,7 +1,7 @@
 // 二次封装axios
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import useUserStore from '@/store/modules/users'
+import useUserStore from '@/store/modules/user'
 let request = axios.create({
   //配置基础路径
   baseURL: import.meta.env.VITE_APP_BASE_API,
