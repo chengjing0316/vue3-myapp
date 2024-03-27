@@ -1,18 +1,18 @@
 <template>
   <div class="logo" v-if="setting.logoHidden">
-    <img :src="setting.logo" alt="">
+    <img :src="setting.logo" alt="" />
     <p>{{ setting.title }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 //引入设置标题与logo这配置文件
-import setting from '@/setting';
+import setting from '@/setting'
 </script>
 
 <script lang="ts">
 export default {
-  name: "Logo"
+  name: 'Logo',
 }
 </script>
 

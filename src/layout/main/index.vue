@@ -8,18 +8,16 @@
   </router-view>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <script lang="ts">
 export default {
-  name: "Main"
+  name: 'Main',
 }
 </script>
 <style scoped>
 .fade-enter-from {
-  opacity: 0
+  opacity: 0;
 }
 
 .fade-enter-active {
@@ -27,6 +25,6 @@ export default {
 }
 
 .fade-enter-to {
-  opacity: 1
+  opacity: 1;
 }
 </style>

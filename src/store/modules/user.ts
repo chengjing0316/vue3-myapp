@@ -16,7 +16,7 @@ let useUserStore = defineStore('User', {
   state: (): UserState => {
     return {
       token: GET_TOKEN('TOKEN'), //用户唯一标识token
-      menuRoutes: constantRoute,//仓库存储生成菜单需要数组（路由）
+      menuRoutes: constantRoute, //仓库存储生成菜单需要数组（路由）
     }
   },
   //异步逻辑的地方
