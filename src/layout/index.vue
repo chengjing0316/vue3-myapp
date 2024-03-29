@@ -16,7 +16,7 @@
           :collapse="LayOutSettingStore.fold ? true : false"
           active-text-color="yellowgreen"
         >
-        <Logo></Logo>
+          <Logo></Logo>
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
