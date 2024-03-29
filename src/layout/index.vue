@@ -5,7 +5,6 @@
       class="layout_slider"
       :class="{ fold: LayOutSettingStore.fold ? true : false }"
     >
-      <Logo></Logo>
       <!-- 展示菜单 -->
       <!-- 滚动组件 -->
       <el-scrollbar class="scrollbar">
@@ -17,6 +16,7 @@
           :collapse="LayOutSettingStore.fold ? true : false"
           active-text-color="yellowgreen"
         >
+        <Logo></Logo>
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
