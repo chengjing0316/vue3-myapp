@@ -3,10 +3,14 @@ import { defineStore } from 'pinia'
 //引入接口
 import { reqLogin, reqUserInfo, reqLogOut } from '@/api/user'
 //引入数据类型
-import type { loginFormData, loginResponseData,userInfoResponseData } from '@/api/user/type'
+import type {
+  loginFormData,
+  loginResponseData,
+  userInfoResponseData,
+} from '@/api/user/type'
 import { UserState } from './types/type'
 //引入操作本地存储的工具方法
-import { GET_TOKEN, SET_TOKEN,REMOVE_TOKEN } from '@/utils/token'
+import { GET_TOKEN, SET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
 //引入路由（常量路由）
 import { constantRoute } from '@/router/routes'
 
@@ -17,8 +21,8 @@ let useUserStore = defineStore('User', {
     return {
       token: GET_TOKEN(), //用户唯一标识token
       menuRoutes: constantRoute, //仓库存储生成菜单需要数组（路由）
-      username:'',
-      avatar:''
+      username: '',
+      avatar: '',
     }
   },
   //异步逻辑的地方
@@ -40,33 +44,33 @@ let useUserStore = defineStore('User', {
       }
     },
     //获取用户信息方法
-    async userInfo(){
+    async userInfo() {
       //获取用户信息
-      let result:userInfoResponseData = await reqUserInfo()
+      let result: userInfoResponseData = await reqUserInfo()
       //如果获取用户信息成功，存储一下用户信息
-      if(result.code == 200){
+      if (result.code == 200) {
         this.username = result.data.name
         this.avatar = result.data.avatar
-        return "ok"
-      }else{
+        return 'ok'
+      } else {
         return Promise.reject(new Error(result.message))
       }
     },
     //退出登录
-    async userLogout(){
+    async userLogout() {
       //退出登录请求
-      let result:any = await reqLogOut()
-      if(result.code == 200){
+      let result: any = await reqLogOut()
+      if (result.code == 200) {
         //目前没有mock接口：退出登录接口（通知服务器本地用户唯一标识失效）
         this.token = ''
-        this.username =''
+        this.username = ''
         this.avatar = ''
         REMOVE_TOKEN()
         return 'ok'
-      }else{
+      } else {
         return Promise.reject(new Error(result.message))
       }
-    }
+    },
   },
   getters: {},
 })

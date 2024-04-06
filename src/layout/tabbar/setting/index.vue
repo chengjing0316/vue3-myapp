@@ -1,6 +1,6 @@
 <template>
-  <el-button icon="Refresh" circle @click="updateRefresh"/>
-  <el-button icon="FullScreen" circle @click="fullScreen"/>
+  <el-button icon="Refresh" circle @click="updateRefresh" />
+  <el-button icon="FullScreen" circle @click="fullScreen" />
   <el-button icon="Setting" circle />
   <img
     :src="userStore.avatar"
@@ -9,7 +9,7 @@
   <!-- 下拉菜单 -->
   <el-dropdown>
     <span class="el-dropdown-link">
-      {{userStore.username}}
+      {{ userStore.username }}
       <el-icon class="el-icon--right">
         <arrow-down />
       </el-icon>
@@ -25,8 +25,8 @@
 <script setup lang="ts">
 //获取骨架的小仓库
 import useLayOutSettingStore from '@/store/modules/setting'
-import useUserStore from '@/store/modules/user';
-import { useRoute, useRouter } from 'vue-router';
+import useUserStore from '@/store/modules/user'
+import { useRoute, useRouter } from 'vue-router'
 //获取用户相关小仓库
 let layOutSettingStore = useLayOutSettingStore()
 let userStore = useUserStore()
@@ -42,10 +42,10 @@ const updateRefresh = () => {
 const fullScreen = () => {
   //DOM对象的一个属性，可以用来判断当前是不是全屏模式
   let full = document.fullscreenElement
-  if(!full){
+  if (!full) {
     //文档根节点的方法requestFullscreen实现全屏模式
     document.documentElement.requestFullscreen()
-  }else{
+  } else {
     //变为不是全屏的模式
     document.exitFullscreen()
   }
@@ -56,7 +56,7 @@ const logout = async () => {
   //2、清空仓库相关数据
   //3、跳转到登录页面
   await userStore.userLogout()
-  $router.push({path:'/login',query:{redirect:$route.path}})
+  $router.push({ path: '/login', query: { redirect: $route.path } })
 }
 </script>
 

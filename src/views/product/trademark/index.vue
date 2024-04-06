@@ -4,13 +4,24 @@
       <!-- 卡片顶部增加品牌按钮 -->
       <el-button type="primary" size="default" icon="plus">添加品牌</el-button>
       <!-- 表格组件：用于展示已有的平台数据 -->
-      <el-table style="margin: 10px 0px;" border :data="trademarkArr">
-        <el-table-column label="序号" width="80px" align="center"></el-table-column>
+      <el-table style="margin: 10px 0px" border :data="trademarkArr">
+        <el-table-column
+          label="序号"
+          width="80px"
+          align="center"
+        ></el-table-column>
         <el-table-column label="品牌名称"></el-table-column>
         <el-table-column label="品牌LOGO"></el-table-column>
         <el-table-column label="品牌操作"></el-table-column>
       </el-table>
-      <el-pagination v-model:current-page="pageNo" v-model:page-size="limit" :page-sizes="[3,5,7,9]" :background="true" :total="total" layout="prev,pager,next,jumper,->,sizes,total"/>
+      <el-pagination
+        v-model:current-page="pageNo"
+        v-model:page-size="limit"
+        :page-sizes="[3, 5, 7, 9]"
+        :background="true"
+        :total="total"
+        layout="prev,pager,next,jumper,->,sizes,total"
+      />
     </el-card>
   </div>
 </template>
@@ -30,13 +41,12 @@ let trademarkArr = ref<any>([])
 const getHasTrademark = async() => {
   let result = await reqHasTrademark(pageNo.value, limit.value)
   total.value = result.data.total
-  trademarkArr.value = 
+  trademarkArr.value =
 }
 //组件挂载完毕钩子---发一次请求，获取第一页、一页三个已有品牌数据
 onMounted(() => {
   getHasTrademark()
 })
-
 </script>
 
 <style scoped lang="scss"></style>

@@ -1,4 +1,8 @@
-import type { loginFormData, loginResponseData, userInfoResponseData } from './type'
+import type {
+  loginFormData,
+  loginResponseData,
+  userInfoResponseData,
+} from './type'
 
 //统一管理用户相关接口
 import request from '@/utils/request'

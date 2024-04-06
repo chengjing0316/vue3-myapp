@@ -6,7 +6,12 @@
   <!-- 左侧面包屑 -->
   <el-breadcrumb separator-icon="ArrowRight">
     <!-- 动态展示路由的名字与标题 -->
-    <el-breadcrumb-item v-for="(item,index) in $route.matched" :key="index" v-show="item.meta.title" :to="item.path">
+    <el-breadcrumb-item
+      v-for="(item, index) in $route.matched"
+      :key="index"
+      v-show="item.meta.title"
+      :to="item.path"
+    >
       <!-- 图标 -->
       <el-icon>
         <Component :is="item.meta.icon"></Component>
@@ -19,7 +24,7 @@
 
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
 //从仓库读取响应式数据控制图标切换
 let LayOutSettingStore = useLayOutSettingStore()
@@ -28,7 +33,6 @@ const changeIcon = () => {
   LayOutSettingStore.fold = !LayOutSettingStore.fold
 }
 let $route = useRoute()
-
 </script>
 
 <script lang="ts">
