@@ -46,8 +46,8 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 //引入用户相关的小仓库
-import useUserStore from '@/store/modules/users'
-import { useRouter } from 'vue-router'
+import useUserStore from '@/store/modules/user'
+import { useRoute, useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 
@@ -56,10 +56,12 @@ let useStore = useUserStore()
 let loginForms = ref()
 //获取路由器
 let $router = useRouter()
+//获取路由对象
+let $route = useRoute()
 //定义变量控制loading按钮加载效果
 let loading = ref(false)
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '123456' })
+let loginForm = reactive({ username: 'admin', password: '111111' })
 //登录按钮回调
 const login = async () => {
   //保证全部校验通过再发请求
@@ -74,7 +76,9 @@ const login = async () => {
     //保证登录成功
     await useStore.userLogin(loginForm)
     //登录成功后编程式导航跳转到展示数据的首页
-    $router.push('/')
+    //判断登录的时候，路由路径当中是否有query参数，有跳转到query参数地址，没有跳转
+    let redirect:any = $route.query.redirect
+    $router.push({path:redirect || '/'})
     //登录成功提示信息
     ElNotification({
       type: 'success',

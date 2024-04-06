@@ -14,9 +14,9 @@
           background-color="#001529"
           text-color="white"
           :collapse="LayOutSettingStore.fold ? true : false"
-          active-text-color="yellowgreen"
+          active-text-color="orange"
         >
-          <Logo></Logo>
+        <Logo></Logo>
           <!-- 根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
@@ -110,7 +110,7 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: yellowgreen;
+    background-color: #ddd;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px;

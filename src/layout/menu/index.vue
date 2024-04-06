@@ -20,6 +20,7 @@
       <el-menu-item
         :index="item.children[0].path"
         v-if="!item.children[0].meta.hidden"
+        @click="goRoute"
       >
         <el-icon>
           <component :is="item.children[0].meta.icon"></component>
