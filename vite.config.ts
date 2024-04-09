@@ -10,6 +10,7 @@ export default defineConfig(
     //获取各种环境下的对应的变量
     let env = loadEnv(mode, process.cwd())
     return {
+      // base:'./',
       //代理跨域
       server: {
         proxy: {
