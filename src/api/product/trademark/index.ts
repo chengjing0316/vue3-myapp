@@ -15,8 +15,9 @@ enum API {
 }
 //获取已有品牌的接口方法
 export const reqHasTrademark = (page: number, limit: number) =>
-  request.get<any,TradeMarkResponseData>(API.TRADEMARK_URL + `${page}/${limit}`)
-
+  request.get<any, TradeMarkResponseData>(
+    API.TRADEMARK_URL + `${page}/${limit}`,
+  )
 
 export const reqAddOrUpdateTrademark = (data: TradeMark) => {
   if (data.id) {
