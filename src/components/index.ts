@@ -4,7 +4,7 @@ import Category from './Category/index.vue'
 //引入element-plus提供全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 //全局对象
-const allGlobalComponent = { SvgIcon, Pagination,Category }
+const allGlobalComponent = { SvgIcon, Pagination, Category }
 //对外暴露插件对象
 //务必叫做install方法
 const install = function (app: any) {
