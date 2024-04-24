@@ -23,9 +23,13 @@
               <el-button size="small" type="primary" icon="Edit" @click="updateAttr(scope.row)">
                 编辑
               </el-button>
-              <el-button size="small" type="danger" icon="Delete">
-                删除
-              </el-button>
+              <el-popconfirm :title="`你确定删除${scope.row.attrName}`" width="200px" @confirm="deleteAttr(scope.row.id)">
+                <template #reference>
+                  <el-button size="small" type="danger" icon="Delete">
+                    删除
+                  </el-button>
+                </template>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
@@ -48,21 +52,27 @@
           <el-table-column label="序号" width="80px" type="index" align="center"></el-table-column>
           <el-table-column label="属性值名称">
             <template #default="scope">
-              <el-input :ref="(vc: any) => inputArr[scope.$index] = vc" size="small" v-if="scope.row.flag"
+              <el-input :ref="(vc: any) => (inputArr[scope.$index] = vc)" size="small" v-if="scope.row.flag"
                 @blur="toLook(scope.row, scope.$index)" placeholder="请你输入属性值名称"
                 v-model="scope.row.valueName"></el-input>
-              <div v-else @click="toEdit(scope.row, scope.$index)">{{ scope.row.valueName }}</div>
+              <div v-else @click="toEdit(scope.row, scope.$index)">
+                {{ scope.row.valueName }}
+              </div>
             </template>
           </el-table-column>
           <el-table-column label="属性值操作">
             <template #default="scope">
               <el-button type="danger" size="small" @click="attrParams.attrValueList.splice(scope.$index, 1)"
-                icon="Delete">删除</el-button>
+                icon="Delete">
+                删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
         <el-button type="primary" size="default" @click="save"
-          :disabled="attrParams.attrValueList.length > 0 ? false : true">保存</el-button>
+          :disabled="attrParams.attrValueList.length > 0 ? false : true">
+          保存
+        </el-button>
         <el-button type="primary" size="default" @click="cancel">
           取消
         </el-button>
@@ -72,13 +82,13 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, watch, reactive, nextTick } from 'vue'
+  import { ref, watch, reactive, nextTick, onBeforeUnmount } from 'vue'
   //引入获取以邮件属性值接口
-  import { reqAddOrUpdateAttr, reqAttr } from '@/api/product/attr'
+  import { reqAddOrUpdateAttr, reqAttr, reqRemoveAttr } from '@/api/product/attr'
   //获取分类的仓库
   import useCategoryStore from '@/store/modules/category'
   import type { AttrResponseData, Attr, AttrValue } from '@/api/product/attr/type'
-  import { ElMessage } from 'element-plus';
+  import { ElMessage } from 'element-plus'
 
   let categoryStore = useCategoryStore()
   //存储已有的属性与属性值
@@ -105,7 +115,7 @@
       if (!categoryStore.c3Id) return
       //获取分类ID
       getAttr()
-    }
+    },
   )
   //获取已有的属性与属性值方法
   const getAttr = async () => {
@@ -122,12 +132,11 @@
       attrName: '',
       attrValueList: [],
       categoryId: categoryStore.c3Id,
-      categoryLevel: 3
+      categoryLevel: 3,
     })
     //切换为添加与修改属性的结构
     scene.value = 1
     //点击这个按钮的时候手机新增属性的三级分类的ID
-
   }
 
   //table表格修改已有属性按钮的回调
@@ -147,7 +156,7 @@
     //点击添加属性值按钮的时候，向数组添加一个属性值对象
     attrParams.attrValueList.push({
       valueName: '',
-      flag: true //控制每一个属性值编辑模式与切换模式的切换
+      flag: true, //控制每一个属性值编辑模式与切换模式的切换
     })
     //获取最后一个el-input组件聚焦
     nextTick(() => {
@@ -163,13 +172,13 @@
       scene.value = 0
       ElMessage({
         type: 'success',
-        message: attrParams.id ? '修改成功' : '添加成功'
+        message: attrParams.id ? '修改成功' : '添加成功',
       })
       getAttr()
     } else {
       ElMessage({
         type: 'error',
-        message: attrParams.id ? '修改失败' : '添加失败'
+        message: attrParams.id ? '修改失败' : '添加失败',
       })
     }
   }
@@ -182,7 +191,7 @@
       //提示信息
       ElMessage({
         type: 'error',
-        message: '属性值不能为空'
+        message: '属性值不能为空',
       })
       return
     }
@@ -199,20 +208,43 @@
       //提示信息
       ElMessage({
         type: 'error',
-        message: '属性值不能重复'
+        message: '属性值不能重复',
       })
       return
     }
     //相应的属性值对象flag:变为false,展示div
     row.flag = false
   }
+  //属性值div的点击事件
   const toEdit = (row: AttrValue, $index: number) => {
     row.flag = true
     nextTick(() => {
       inputArr.value[$index].focus()
     })
   }
-
+  //删除某一个已有的属性
+  const deleteAttr = async (attrId: number) => {
+    let result: any = await reqRemoveAttr(attrId)
+    //删除成功消息
+    if (result.code === 200) {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      //获取一次已有属性与属性值
+      getAttr()
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '删除失败'
+      })
+    }
+  }
+  //路由组件销毁的时候，把仓库分类相关的数据清空
+  onBeforeUnmount(() => {
+    //清空仓库的数据
+    categoryStore.$reset()
+  })
 </script>
 
 <style scoped lang="scss"></style>
