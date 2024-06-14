@@ -20,35 +20,35 @@ export default defineConfig(
             //需要代理跨域
             changeOrigin: true,
             //路径重写
-            rewrite: (path) => path.replace(/^\/api/, ''),
-          },
+            rewrite: (path) => path.replace(/^\/api/, '')
+          }
           // '/api': 'http://127.0.0.1:8080'
-        },
+        }
       },
       resolve: {
         alias: {
-          '@': path.resolve('./src'),
-        },
+          '@': path.resolve('./src')
+        }
       },
       plugins: [
         vue(),
         createSvgIconsPlugin({
           iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-          symbolId: 'icon-[dir]-[name]',
+          symbolId: 'icon-[dir]-[name]'
         }),
         viteMockServe({
-          localEnabled: command === 'serve', //保证开发阶段能使用接口
-        }),
+          localEnabled: command === 'serve' //保证开发阶段能使用接口
+        })
       ],
       //scss全局变量的配置
       css: {
         preprocessorOptions: {
           scss: {
             javascriptEnabled: true,
-            additionalData: '@import "./src/styles/variable.scss";',
-          },
-        },
-      },
+            additionalData: '@import "./src/styles/variable.scss";'
+          }
+        }
+      }
     }
-  },
+  }
 )

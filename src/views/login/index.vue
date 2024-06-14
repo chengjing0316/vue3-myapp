@@ -83,7 +83,7 @@ const login = async () => {
     ElNotification({
       type: 'success',
       message: '登录成功',
-      title: `HI,${getTime()}好`,
+      title: `HI,${getTime()}好`
     })
     //登录成功加载效果也消失
     loading.value = false
@@ -94,7 +94,7 @@ const login = async () => {
     ElNotification({
       type: 'error',
       //这里类型提示,改成error as Error就OK了
-      message: (error as Error).message,
+      message: (error as Error).message
     })
   }
 }
@@ -119,7 +119,7 @@ const validatorPassWord = (rule: any, value: any, callback: any) => {
 //定义表单校验需要配置的对象
 const rules = {
   username: [{ trigger: 'change', validatorUserName }],
-  password: [{ trigger: 'change', validatorPassWord }],
+  password: [{ trigger: 'change', validatorPassWord }]
 }
 </script>
 

@@ -22,7 +22,7 @@ import './permission'
 const app = createApp(App)
 
 app.use(ElementPlus, {
-  locale: zhCn,
+  locale: zhCn
 })
 //安装自定义插件
 app.use(globalComponent)

@@ -150,14 +150,14 @@ import type {
   SaleAttr,
   HasSaleAttr,
   SaleAttrValue,
-  saleAttr,
+  saleAttr
 } from '@/api/product/spu/type'
 import {
   reqAllTradeMark,
   reqSpuImageList,
   reqSpuHasSaleAttr,
   reqAllSalAttr,
-  reqAddOrUpdateSpu,
+  reqAddOrUpdateSpu
 } from '@/api/product/spu'
 import { computed, nextTick, ref } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -187,7 +187,7 @@ let SpuParams = ref<SpuData>({
   description: '',
   tmId: '',
   spuImageList: [],
-  spuSaleAttrList: [],
+  spuSaleAttrList: []
 })
 //存储预览图片地址
 let dialogImageUrl = ref<string>('')
@@ -211,7 +211,7 @@ const initHasSpuData = async (spu: SpuData) => {
   imgList.value = res1.data.map((item) => {
     return {
       name: item.imgName,
-      url: item.imgUrl,
+      url: item.imgUrl
     }
   })
   saleAttr.value = res2.data
@@ -237,14 +237,14 @@ const handlerUpload = (file: any) => {
     } else {
       ElMessage({
         type: 'error',
-        message: '上传文件务必小于3M',
+        message: '上传文件务必小于3M'
       })
       return false
     }
   } else {
     ElMessage({
       type: 'error',
-      message: '上传文件务必PNG|JPG|GIF',
+      message: '上传文件务必PNG|JPG|GIF'
     })
     return false
   }
@@ -265,7 +265,7 @@ const addSaleAttr = () => {
   let newSaleAttr: SaleAttr = {
     baseSaleAttrId,
     saleAttrName,
-    spuSaleAttrValueList: [],
+    spuSaleAttrValueList: []
   }
   // 追加到数组当中
   saleAttr.value.push(newSaleAttr)
@@ -287,13 +287,13 @@ const toLook = (row: SaleAttr) => {
   // 整理成服务器需要形式
   let newSaleAttrValue: SaleAttrValue = {
     baseSaleAttrId,
-    saleAttrValueName: saleAttrValue as string,
+    saleAttrValueName: saleAttrValue as string
   }
   // 非法情况判断
   if ((saleAttrValue as string).trim() == '') {
     ElMessage({
       type: 'error',
-      message: '属性值不能为空的',
+      message: '属性值不能为空的'
     })
     return
   }
@@ -304,7 +304,7 @@ const toLook = (row: SaleAttr) => {
   if (repeat) {
     ElMessage({
       type: 'error',
-      message: '属性值重复',
+      message: '属性值重复'
     })
     return
   }
@@ -318,7 +318,7 @@ const save = async () => {
   SpuParams.value.spuImageList = imgList.value.map((item: any) => {
     return {
       imgName: item.name,
-      imgUrl: (item.response && item.response.data) || item.url,
+      imgUrl: (item.response && item.response.data) || item.url
     }
   })
   // 2、整理销售属性的数据
@@ -327,11 +327,11 @@ const save = async () => {
   if (res.code === 200) {
     ElMessage({
       type: 'success',
-      message: SpuParams.value.id ? '更新成功' : '添加成功',
+      message: SpuParams.value.id ? '更新成功' : '添加成功'
     })
     $emit('changeScene', {
       flag: 0,
-      params: SpuParams.value.id ? 'update' : 'add',
+      params: SpuParams.value.id ? 'update' : 'add'
     })
   }
 }
@@ -344,7 +344,7 @@ const initAddSpu = async (c3Id: number | string) => {
     description: '',
     tmId: '',
     spuImageList: [],
-    spuSaleAttrList: [],
+    spuSaleAttrList: []
   })
   //清空照片
   imgList.value = []

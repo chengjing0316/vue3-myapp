@@ -15,7 +15,7 @@ enum API {
   //添加或者修改已有属性的接口
   ADDORUPDATEATTR_URL = '/admin/product/saveAttrInfo',
   //删除属性
-  DELETEATTR_URL = '/admin/product/deleteAttr/',
+  DELETEATTR_URL = '/admin/product/deleteAttr/'
 }
 
 //获取一级分类的接口方法
@@ -33,10 +33,10 @@ export const reqC3 = (category2Id: number | string) =>
 export const reqAttr = (
   category1Id: number | string,
   category2Id: number | string,
-  category3Id: number | string,
+  category3Id: number | string
 ) =>
   request.get<any, AttrResponseData>(
-    API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`,
+    API.ATTR_URL + `${category1Id}/${category2Id}/${category3Id}`
   )
 
 //添加或者修改已有属性的接口

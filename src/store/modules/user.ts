@@ -6,7 +6,7 @@ import { reqLogin, reqUserInfo, reqLogOut } from '@/api/user'
 import type {
   loginFormData,
   loginResponseData,
-  userInfoResponseData,
+  userInfoResponseData
 } from '@/api/user/type'
 import { UserState } from './types/type'
 //引入操作本地存储的工具方法
@@ -22,7 +22,7 @@ let useUserStore = defineStore('User', {
       token: GET_TOKEN(), //用户唯一标识token
       menuRoutes: constantRoute, //仓库存储生成菜单需要数组（路由）
       username: '',
-      avatar: '',
+      avatar: ''
     }
   },
   //异步逻辑的地方
@@ -70,9 +70,9 @@ let useUserStore = defineStore('User', {
       } else {
         return Promise.reject(new Error(result.message))
       }
-    },
+    }
   },
-  getters: {},
+  getters: {}
 })
 
 export default useUserStore

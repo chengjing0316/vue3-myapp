@@ -118,12 +118,12 @@ import { ref, onMounted, reactive, nextTick } from 'vue'
 import {
   reqHasTrademark,
   reqAddOrUpdateTrademark,
-  reqDeleteTrademark,
+  reqDeleteTrademark
 } from '@/api/product/trademark'
 import {
   Records,
   TradeMark,
-  TradeMarkResponseData,
+  TradeMarkResponseData
 } from '@/api/product/trademark/type'
 import { ElMessage, UploadProps } from 'element-plus'
 //当前页码
@@ -139,7 +139,7 @@ let dialogFormVisible = ref<boolean>(false)
 //定义收集新增品牌数据
 let trademarkParams = reactive<TradeMark>({
   tmName: '',
-  logoUrl: '',
+  logoUrl: ''
 })
 //获取el-form组件实例
 let formRef = ref()
@@ -148,7 +148,7 @@ const getHasTrademark = async (pager = 1) => {
   pageNo.value = pager
   let result: TradeMarkResponseData = await reqHasTrademark(
     pageNo.value,
-    limit.value,
+    limit.value
   )
   if (result.code == 200) {
     //存储已有品牌个数
@@ -211,13 +211,13 @@ const confirm = async () => {
     dialogFormVisible.value = false
     ElMessage({
       type: 'success',
-      message: trademarkParams.id ? '修改品牌成功' : '添加品牌成功',
+      message: trademarkParams.id ? '修改品牌成功' : '添加品牌成功'
     })
     getHasTrademark(trademarkParams.id ? pageNo.value : 1)
   } else {
     ElMessage({
       type: 'error',
-      message: trademarkParams.id ? '修改品牌失败' : '添加品牌失败',
+      message: trademarkParams.id ? '修改品牌失败' : '添加品牌失败'
     })
   }
 }
@@ -234,20 +234,20 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     } else {
       ElMessage({
         type: 'error',
-        message: '上传文件大小超过2M',
+        message: '上传文件大小超过2M'
       })
     }
   } else {
     ElMessage({
       type: 'error',
-      message: '仅限jpeg、png、gif格式',
+      message: '仅限jpeg、png、gif格式'
     })
   }
 }
 //图片上传成功钩子
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response, //post后返回数据
-  uploadFile,
+  uploadFile
 ) => {
   trademarkParams.logoUrl = response.data
   //图片上传成功清除校验提示
@@ -275,9 +275,9 @@ const rules = {
   tmName: [
     //required:这个字段务必校验
     //trigger:触发校验规则时机
-    { required: true, trigger: 'blur', validator: validatorTmName },
+    { required: true, trigger: 'blur', validator: validatorTmName }
   ],
-  logoUrl: [{ required: true, trigger: 'blur', validator: validatorLogoUrl }],
+  logoUrl: [{ required: true, trigger: 'blur', validator: validatorLogoUrl }]
 }
 
 //删除品牌
@@ -288,16 +288,16 @@ const removeTradeMark = async (id: number) => {
     //删除成功提示信息
     ElMessage({
       type: 'success',
-      message: '删除品牌成功',
+      message: '删除品牌成功'
     })
     //再次获取已有品牌数据
     getHasTrademark(
-      trademarkArr.value.length > 1 ? pageNo.value : pageNo.value - 1,
+      trademarkArr.value.length > 1 ? pageNo.value : pageNo.value - 1
     )
   } else {
     ElMessage({
       type: 'error',
-      message: '删除品牌失败',
+      message: '删除品牌失败'
     })
   }
 }

@@ -8,7 +8,7 @@ let request = axios.create({
   //配置基础路径
   baseURL: import.meta.env.VITE_APP_BASE_API,
   //超时时间设置
-  timeout: 5000,
+  timeout: 5000
 })
 
 request.interceptors.request.use((config) => {
@@ -60,10 +60,10 @@ request.interceptors.response.use(
     }
     ElMessage({
       type: 'error',
-      message,
+      message
     })
     return Promise.reject(error)
-  },
+  }
 )
 
 export default request

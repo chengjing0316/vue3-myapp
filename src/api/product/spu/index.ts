@@ -7,7 +7,7 @@ import type {
   SaleAttrResponseData,
   SpuData,
   SkuData,
-  SkuInfoData,
+  SkuInfoData
 } from './type'
 enum API {
   HASSPU_URL = '/admin/product/',
@@ -19,16 +19,16 @@ enum API {
   UPDATESPU_URL = '/admin/product/updateSpuInfo',
   ADDSKU_URL = '/admin/product/saveSkuInfo',
   SKUINFO_URL = '/admin/product/findBySpuId/',
-  REMOVESPU_URL = '/admin/product/deleteSpu/',
+  REMOVESPU_URL = '/admin/product/deleteSpu/'
 }
 
 export const reqHasSpu = (
   page: number,
   limit: number,
-  category3Id: string | number,
+  category3Id: string | number
 ) =>
   request.get<any, HasSpuResponseData>(
-    API.HASSPU_URL + `${page}/${limit}?category3Id=${category3Id}`,
+    API.HASSPU_URL + `${page}/${limit}?category3Id=${category3Id}`
   )
 
 export const reqAllTradeMark = () =>

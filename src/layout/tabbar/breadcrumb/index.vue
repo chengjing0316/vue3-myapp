@@ -37,7 +37,7 @@ let $route = useRoute()
 
 <script lang="ts">
 export default {
-  name: 'Breadcrumb',
+  name: 'Breadcrumb'
 }
 </script>
 

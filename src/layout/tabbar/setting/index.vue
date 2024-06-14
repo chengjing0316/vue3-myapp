@@ -62,7 +62,7 @@ const logout = async () => {
 
 <script lang="ts">
 export default {
-  name: 'Setting',
+  name: 'Setting'
 }
 </script>
 

@@ -11,12 +11,12 @@ enum API {
   //修改已有品牌
   UPDATETRADEMARK_URL = '/admin/product/baseTrademark/update',
   //删除已有品牌
-  DELETE_URL = '/admin/product/baseTrademark/remove/',
+  DELETE_URL = '/admin/product/baseTrademark/remove/'
 }
 //获取已有品牌的接口方法
 export const reqHasTrademark = (page: number, limit: number) =>
   request.get<any, TradeMarkResponseData>(
-    API.TRADEMARK_URL + `${page}/${limit}`,
+    API.TRADEMARK_URL + `${page}/${limit}`
   )
 
 export const reqAddOrUpdateTrademark = (data: TradeMark) => {

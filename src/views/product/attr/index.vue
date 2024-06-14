@@ -159,7 +159,7 @@ let attrParams = reactive<Attr>({
   attrName: '', //新增的属性的名字
   attrValueList: [], //新增的属性值数组
   categoryId: '', //三级分类的ID
-  categoryLevel: 3, //代表三级分类
+  categoryLevel: 3 //代表三级分类
 })
 //准备一个数组：将来存储对应的组件实例el-input
 let inputArr = ref<any>([])
@@ -173,7 +173,7 @@ watch(
     if (!categoryStore.c3Id) return
     //获取分类ID
     getAttr()
-  },
+  }
 )
 //获取已有的属性与属性值方法
 const getAttr = async () => {
@@ -190,7 +190,7 @@ const addAttr = () => {
     attrName: '',
     attrValueList: [],
     categoryId: categoryStore.c3Id,
-    categoryLevel: 3,
+    categoryLevel: 3
   })
   //切换为添加与修改属性的结构
   scene.value = 1
@@ -214,7 +214,7 @@ const addAttrValue = () => {
   //点击添加属性值按钮的时候，向数组添加一个属性值对象
   attrParams.attrValueList.push({
     valueName: '',
-    flag: true, //控制每一个属性值编辑模式与切换模式的切换
+    flag: true //控制每一个属性值编辑模式与切换模式的切换
   })
   //获取最后一个el-input组件聚焦
   nextTick(() => {
@@ -230,13 +230,13 @@ const save = async () => {
     scene.value = 0
     ElMessage({
       type: 'success',
-      message: attrParams.id ? '修改成功' : '添加成功',
+      message: attrParams.id ? '修改成功' : '添加成功'
     })
     getAttr()
   } else {
     ElMessage({
       type: 'error',
-      message: attrParams.id ? '修改失败' : '添加失败',
+      message: attrParams.id ? '修改失败' : '添加失败'
     })
   }
 }
@@ -249,7 +249,7 @@ const toLook = (row: AttrValue, $index: number) => {
     //提示信息
     ElMessage({
       type: 'error',
-      message: '属性值不能为空',
+      message: '属性值不能为空'
     })
     return
   }
@@ -266,7 +266,7 @@ const toLook = (row: AttrValue, $index: number) => {
     //提示信息
     ElMessage({
       type: 'error',
-      message: '属性值不能重复',
+      message: '属性值不能重复'
     })
     return
   }
@@ -287,14 +287,14 @@ const deleteAttr = async (attrId: number) => {
   if (result.code === 200) {
     ElMessage({
       type: 'success',
-      message: '删除成功',
+      message: '删除成功'
     })
     //获取一次已有属性与属性值
     getAttr()
   } else {
     ElMessage({
       type: 'error',
-      message: '删除失败',
+      message: '删除失败'
     })
   }
 }
