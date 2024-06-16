@@ -25,6 +25,12 @@
               show-password
             ></el-input>
           </el-form-item>
+          <el-checkbox
+            v-model="remember"
+            label="记住密码"
+            style="color: #fff; margin-bottom: 18px"
+            size="large"
+          ></el-checkbox>
           <el-form-item>
             <el-button
               :loading="loading"
@@ -44,12 +50,13 @@
 
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue'
+import { onBeforeMount, onBeforeUnmount, reactive, ref } from 'vue'
 //引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
 import { useRoute, useRouter } from 'vue-router'
 import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
+import { AES_Decrypt, AES_Encrypt } from '@/utils/crypto'
 
 let useStore = useUserStore()
 //获取el-form组件
@@ -61,7 +68,9 @@ let $route = useRoute()
 //定义变量控制loading按钮加载效果
 let loading = ref(false)
 //收集账号与密码的数据
-let loginForm = reactive({ username: 'admin', password: '111111' })
+let loginForm = reactive({ username: '', password: '' })
+//记住密码
+let remember = ref<boolean>(false)
 //登录按钮回调
 const login = async () => {
   //保证全部校验通过再发请求
@@ -75,6 +84,19 @@ const login = async () => {
   try {
     //保证登录成功
     await useStore.userLogin(loginForm)
+
+    // 判断是否记住密码
+    if (remember.value) {
+      localStorage.setItem(
+        'loginForm',
+        JSON.stringify({
+          username: loginForm.username,
+          password: AES_Encrypt(loginForm.password)
+        })
+      )
+    } else {
+      localStorage.setItem('loginForm', JSON.stringify({}))
+    }
     //登录成功后编程式导航跳转到展示数据的首页
     //判断登录的时候，路由路径当中是否有query参数，有跳转到query参数地址，没有跳转
     let redirect: any = $route.query.redirect
@@ -121,6 +143,31 @@ const rules = {
   username: [{ trigger: 'change', validatorUserName }],
   password: [{ trigger: 'change', validatorPassWord }]
 }
+
+// 监听回车事件
+function onKeyUp(e: any) {
+  if (e.key == 'Enter') login()
+}
+
+onBeforeMount(() => {
+  //在setup中，用来加载页面时，查看账户密码是否存在
+  if (localStorage.getItem('loginForm') != null) {
+    remember.value = true
+    var userPwdInfo = JSON.parse(localStorage.getItem('loginForm') as string)
+
+    loginForm.username = userPwdInfo.username
+    loginForm.password = AES_Decrypt(userPwdInfo.password)
+  } else {
+    remember.value = false
+  }
+
+  document.addEventListener('keyup', onKeyUp)
+})
+
+// 移除键盘监听
+onBeforeUnmount(() => {
+  document.removeEventListener('keyup', onKeyUp)
+})
 </script>
 
 <style lang="scss" scoped>

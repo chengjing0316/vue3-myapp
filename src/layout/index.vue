@@ -71,7 +71,6 @@ export default {
 .layout_container {
   width: 100%;
   height: 100vh;
-
   .layout_slider {
     color: white;
     width: $base-menu-width;
