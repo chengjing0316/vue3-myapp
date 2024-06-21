@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 搜索 -->
     <el-card style="height: 80px">
       <el-form :inline="true" class="form">
         <el-form-item label="职位搜索" size="default">
@@ -13,6 +14,7 @@
         </el-form-item>
       </el-form>
     </el-card>
+    <!-- 表格 -->
     <el-card style="margin: 10px 0">
       <el-button type="primary" size="default" @click="addRole" icon="Plus">
         添加职位
@@ -47,7 +49,7 @@
             <el-button
               type="primary"
               size="small"
-              @click="setRole(row)"
+              @click="setPermission(row)"
               icon="User"
             >
               分配权限
@@ -61,9 +63,9 @@
               编辑
             </el-button>
             <el-popconfirm
-              :title="`你确定删除${row.username}`"
+              :title="`你确定删除${row.roleName}`"
               width="260px"
-              @confirm="deleteUser(row.id)"
+              @confirm="removeRole(row.id)"
             >
               <template #reference>
                 <el-button type="danger" size="small" icon="Delete">
@@ -105,6 +107,30 @@
         <el-button type="primary" size="default" @click="save">确定</el-button>
       </template>
     </el-dialog>
+    <!-- 抽屉组件：分配职位权限 -->
+    <el-drawer v-model="drawer">
+      <template #header>
+        <h4>分配菜单与按钮权限</h4>
+      </template>
+      <template #default>
+        <!-- 树形控件 -->
+        <el-tree
+          ref="tree"
+          :data="menuArr"
+          show-checkbox
+          node-key="id"
+          default-expand-all
+          :props="defaultProps"
+          :default-checked-keys="selectArr"
+        ></el-tree>
+      </template>
+      <template #footer>
+        <div style="flex: auto">
+          <el-button @click="drawer = false">取消</el-button>
+          <el-button type="primary" @click="handler">确定</el-button>
+        </div>
+      </template>
+    </el-drawer>
   </div>
 </template>
 
@@ -125,8 +151,7 @@ import type {
   MenuList
 } from '@/api/acl/role/type'
 import useLayOutSettingStore from '@/store/modules/setting'
-import { tr } from 'element-plus/es/locale/index.mjs'
-import { ElMessage } from 'element-plus'
+import { ElMessage, resultProps } from 'element-plus'
 let pageNo = ref<number>(1)
 let pageSize = ref<number>(10)
 let total = ref<number>(0)
@@ -140,6 +165,19 @@ let keyword = ref<string>('')
 let allRole = ref<Records>([])
 //获取form示例
 let form = ref<any>()
+//抽屉
+let drawer = ref<boolean>(false)
+//定义数组存储用户权限数据
+let menuArr = ref<MenuList>([])
+//用于存储勾选的节点的ID（四级的）
+let selectArr = ref<number[]>([])
+//获取tree实例
+let tree = ref<any>()
+//配置选项
+const defaultProps = {
+  children: 'children',
+  label: 'name'
+}
 // 获取职位请求
 const getHasRole = async (pager = 1) => {
   // 修改当前页码
@@ -206,6 +244,65 @@ const save = async () => {
     })
     dialogVisible.value = false
     getHasRole(RoleParams.id ? pageNo.value : 1)
+  }
+}
+const setPermission = async (row: RoleData) => {
+  //显示抽屉
+  drawer.value = true
+  // 收集职位数据
+  Object.assign(RoleParams, row)
+  //根据职位获取权限数据
+  let res: MenuResponseData = await reqAllMenuList(RoleParams.id as number)
+  if (res.code == 200) {
+    menuArr.value = res.data
+    selectArr.value = filterSelectArr(menuArr.value, [])
+  }
+}
+//筛选勾选的ID
+const filterSelectArr = (allData: any, initArr: any) => {
+  allData.forEach((item: any) => {
+    if (item.select && item.level == 4) {
+      initArr.push(item.id)
+    }
+    if (item.children && item.children.length > 0) {
+      filterSelectArr(item.children, initArr)
+    }
+  })
+  return initArr
+}
+//抽屉确定按钮的回调
+const handler = async () => {
+  // 职位ID
+  const roleId = RoleParams.id as number
+  //选中节点的ID
+  let arr = tree.value.getCheckedKeys()
+  //半选的ID
+  let arr1 = tree.value.getHalfCheckedKeys()
+  let permissionId = arr.concat(arr1)
+  //下发权限
+  let res: any = await reqSetPermission(roleId, permissionId)
+  if (res.code == 200) {
+    drawer.value = false
+    if (res.code === 200) {
+      drawer.value = false
+      ElMessage({
+        type: 'success',
+        message: '分配权限成功'
+      })
+      //页面刷新
+      window.location.reload()
+    }
+  }
+}
+//删除已有职位
+const removeRole = async (id: number) => {
+  let res: any = await reqRemoveRole(id)
+  if (res.code === 200) {
+    ElMessage({
+      type: 'success',
+      message: '删除成功'
+    })
+    getHasRole(allRole.value.length > 1 ? pageNo.value : pageNo.value - 1)
   }
 }
 onMounted(() => {
