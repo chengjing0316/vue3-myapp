@@ -12,12 +12,14 @@
       v-show="item.meta.title"
       :to="item.path"
     >
-      <!-- 图标 -->
-      <el-icon>
-        <Component :is="item.meta.icon"></Component>
-      </el-icon>
-      <!-- 路由标题 -->
-      <span>{{ item.meta.title }}</span>
+      <template v-if="item.path !== '/'">
+        <!-- 图标 -->
+        <el-icon>
+          <Component :is="item.meta.icon"></Component>
+        </el-icon>
+        <!-- 路由标题 -->
+        <span>{{ item.meta.title }}</span>
+      </template>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>

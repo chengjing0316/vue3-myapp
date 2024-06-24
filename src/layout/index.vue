@@ -91,7 +91,6 @@ export default {
       width: $base-menu-min-width;
     }
   }
-
   .layout_tabbar {
     position: fixed;
     width: calc(100% - $base-menu-width);
@@ -99,6 +98,9 @@ export default {
     top: 0px;
     left: $base-menu-width;
     transition: all 0.3s;
+    background-color: #fff !important;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    z-index: 999;
     &.fold {
       width: calc(100vw - $base-menu-min-width);
       left: $base-menu-min-width;
@@ -109,12 +111,13 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: #ddd;
+    // background-color: white;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px;
     overflow: auto;
     transition: all 0.3s;
+    background-color: var(--el-bg-color);
     &.fold {
       width: calc(100vw - $base-menu-min-width);
       left: $base-menu-min-width;

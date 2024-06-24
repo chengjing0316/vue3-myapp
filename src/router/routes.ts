@@ -82,7 +82,7 @@ export const constantRoute = [
         component: () => import('@/views/acl/permission/index.vue'),
         name: 'Permission',
         meta: {
-          title: '权限管理',
+          title: '菜单管理',
           hidden: false,
           icon: 'Monitor'
         }

@@ -26,10 +26,12 @@ export default {
   height: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  align-items: center;
+  background-color: var(--el-bg-color-overlay);
   .tabbar_left {
     display: flex;
     align-items: center;
+    margin-left: 20px;
   }
 
   .tabbar_right {
