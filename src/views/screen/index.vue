@@ -12,8 +12,15 @@
           <Sex class="sex"></Sex>
           <Age class="age"></Age>
         </div>
-        <div class="center"></div>
-        <div class="right"></div>
+        <div class="center">
+          <Map class="map"></Map>
+          <Line class="line"></Line>
+        </div>
+        <div class="right">
+          <Rank class="rank"></Rank>
+          <Year class="year"></Year>
+          <Counter class="count"></Counter>
+        </div>
       </div>
     </div>
   </div>
@@ -27,6 +34,13 @@ import Top from './components/top/index.vue'
 import Tourist from './components/tourist/index.vue'
 import Sex from './components/sex/index.vue'
 import Age from './components/age/index.vue'
+//引入中间两个子组件
+import Map from './components/map/index.vue'
+import Line from './components/line/index.vue'
+//引入右侧三个子组件
+import Rank from './components/rank/index.vue'
+import Year from './components/year/index.vue'
+import Counter from './components/counter/index.vue'
 //获取展示内容盒子DOM
 let screen = ref()
 
@@ -67,6 +81,20 @@ onMounted(() => {
       display: flex;
       .right {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 40px;
+        .rank {
+          flex: 1.5;
+        }
+
+        .year {
+          flex: 1;
+        }
+
+        .count {
+          flex: 1;
+        }
       }
       .left {
         flex: 1;
@@ -78,15 +106,21 @@ onMounted(() => {
         }
         .sex {
           flex: 1;
-          background: orange;
         }
         .age {
           flex: 1;
-          background-color: honeydew;
         }
       }
       .center {
         flex: 2;
+        display: flex;
+        flex-direction: column;
+        .map {
+          flex: 4;
+        }
+        .line {
+          flex: 1;
+        }
       }
     }
   }

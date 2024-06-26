@@ -13,13 +13,15 @@
       <span v-for="(item, index) in people" :key="index">{{ item }}</span>
     </div>
     <!-- 展示图表 -->
-    <div class="charts"></div>
+    <div class="charts" ref="charts"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import * as echarts from 'echarts'
+import 'echarts-liquidfill'
+
 let people = ref('215908')
 let charts = ref()
 onMounted(() => {
@@ -27,10 +29,31 @@ onMounted(() => {
   let mycharts = echarts.init(charts.value)
   //设置实例的配置项
   mycharts.setOption({
-    title: { text: 'water' },
+    title: { text: '水球图' },
     xAxis: {},
     yAxis: {},
-    series: { type: 'bar', data: [10, 20, 30, 40] },
+    series: [
+      {
+        type: 'liquidFill',
+        data: [0.6, 0.5, 0.4, 0.3], //展示的数据
+        waveAnimation: true, //动画
+        animationDuration: 3, //动画时间
+        animationDurationUpdate: 0,
+        radius: '95%', //半径
+        outline: {
+          //外层边框颜色设置
+          show: true,
+          borderDistance: 8,
+          itemStyle: {
+            color: 'skyblue',
+            borderColor: '#294D99',
+            borderWidth: 8,
+            shadowBlur: 20,
+            shadowColor: 'rgba(0, 0, 0, 0.25)'
+          }
+        }
+      }
+    ],
     grid: {
       left: 0,
       top: 0,
@@ -50,7 +73,7 @@ onMounted(() => {
     margin-left: 20px;
     .title {
       color: white;
-      font-size: 25px;
+      font-size: 20px;
     }
     .bg {
       width: 68px;
@@ -85,7 +108,6 @@ onMounted(() => {
   .charts {
     width: 100%;
     height: 250px;
-    background-color: red;
   }
 }
 </style>
