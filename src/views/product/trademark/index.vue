@@ -7,6 +7,7 @@
         size="default"
         icon="plus"
         @click="addTrademark"
+        v-has="`btn.Trademark.add`"
       >
         添加品牌
       </el-button>
@@ -126,6 +127,7 @@ import {
   TradeMarkResponseData
 } from '@/api/product/trademark/type'
 import { ElMessage, UploadProps } from 'element-plus'
+
 //当前页码
 let pageNo = ref<number>(1)
 //每一页展示多少条数据

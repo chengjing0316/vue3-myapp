@@ -20,9 +20,11 @@ import router from './router'
 import pinia from './store'
 //引入路由鉴权文件
 import './permission'
+//引入自定义指令
+import { isHasButton } from '@/directive/has'
 
 const app = createApp(App)
-
+isHasButton(app)
 app.use(ElementPlus, {
   locale: zhCn
 })

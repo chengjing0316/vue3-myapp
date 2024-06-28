@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-const checked1 = ref(false)
-const checked2 = ref(false)
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
